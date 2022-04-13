@@ -1,0 +1,43 @@
+.show_number {
+    background-color: rgb(70, 78, 85);
+    color: white;
+    width: 160px;
+    height: 40px;
+    padding: 20px 20px 15px ;
+    border: 2px solid black;
+    border-bottom: 0px;
+    text-align:right;
+    font-size: 40px;
+}
+.number_buttons {
+    width: 200px;
+    height: 250px;
+    border: 2px solid black;
+}
+.button_ac, .button_0{
+    background-color: white;
+    color: black;
+    width: 101px;
+    height: 50px;
+    font-size: 30px;
+    text-align: left;
+    margin-right: -5px;
+}
+.button_ret, .button_7, .button_8, .button_9, .button_4, .button_5,
+.button_6, .button_1, .button_2, .button_3, .button_dot{
+    background-color: white;
+    color: black;
+    width: 51px;
+    height: 50px;
+    font-size: 30px;
+    margin-right: -5px;
+}
+.button_division, .button_multiplication, .button_substract, 
+.button_sum, .button_result{
+    background-color: darkgoldenrod;
+    color: white;
+    width: 51px;
+    height: 50px;
+    font-size: 30px;
+    margin-right: -5px;
+}
