@@ -1,11 +1,15 @@
 module.exports = {
   env: {
     es2021: true,
+    jest: true,
     node: true,
   },
-  extends: ["airbnb-base,prettier,jest,node"],
+  extends: ["airbnb-base", "prettier"],
   parserOptions: {
     ecmaVersion: "latest",
   },
-  rules: {},
+  rules: {
+    "no-plusplus": "off",
+    "no-restricted-syntax": "off",
+  },
 };
