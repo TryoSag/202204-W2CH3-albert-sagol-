@@ -53,55 +53,12 @@ function showLastFlights() {
     listLastestFlights = listLastestFlights.concat(", ", flights[i - 1].to);
   }
 }
-function adminActions() {
-  let adminExit = false;
-
-  adminExit = true;
-  if (flights.length < 15) {
-    adminCreateFlight();
+function adminAskCost() {
+  const flightCost = "flight";
+  if (Number.isNaN(flightCost) || flightCost === null) {
+    return adminAskCost();
   }
-  adminExit = true;
-  if (flights.length > 0) {
-    adminRemoveFlight();
-  }
-  if (adminExit === true) {
-    adminActions();
-  }
-}
-
-function askUserOrAdmin() {
-  const userAdmin = "Admin";
-  if (userAdmin === null) {
-    askUserOrAdmin();
-  }
-  switch (userAdmin.toLowerCase()) {
-    case "admin":
-      adminActions();
-      break;
-    case "user":
-      userActions();
-      break;
-    default:
-      askUserOrAdmin();
-  }
-}
-
-function userMaxPrice() {
-  const userMaximumPrice = 2;
-  const arrayCorrectPrice = [];
-  if (Number.isNaN(userMaximumPrice) || userMaximumPrice === null) {
-    return userMaxPrice();
-  }
-  flights.forEach((flight) => {
-    if (flight.cost <= userMaximumPrice) {
-      arrayCorrectPrice.push(flight.id);
-    }
-  });
-  if (arrayCorrectPrice.length > 0) {
-    return arrayCorrectPrice;
-  }
-
-  return userMaxPrice();
+  return flightCost;
 }
 function userEnteredId(arrayFlightIds) {
   let userIdSelected = " flight";
@@ -135,29 +92,6 @@ function adminAskId() {
   });
   return adminId;
 }
-function userActions() {
-  const arrayFilteredFlights = userMaxPrice();
-  showFlightsAndId(arrayFilteredFlights);
-  userEnteredId(arrayFilteredFlights);
-}
-function adminAskCost() {
-  const flightCost = "flight";
-  if (Number.isNaN(flightCost) || flightCost === null) {
-    return adminAskCost();
-  }
-  return flightCost;
-}
-function adminCreateFlight() {
-  flights.push({
-    id: adminAskId(),
-    from: "origin",
-    to: "airport",
-    scale: true,
-    cost: adminAskCost(),
-  });
-  showFlightsAndId(flights.map((flight) => flight.id));
-}
-
 function adminRemoveFlight() {
   let adminIdRemove = 2;
   if (Number.isNaN(adminIdRemove) || adminIdRemove === null) {
@@ -168,15 +102,71 @@ function adminRemoveFlight() {
   if (flightId === null) {
     return adminRemoveFlight();
   }
-  flights.splice(flightId, 1);
+  return flights.splice(flightId, 1);
+}
+function adminCreateFlight() {
+  flights.push({
+    id: adminAskId(),
+    from: "origin",
+    to: "airport",
+    scale: true,
+    cost: adminAskCost(),
+  });
+}
+function adminActions() {
+  let adminExit = false;
 
-  showFlightsAndId(flights.map((flight) => flight.id));
+  adminExit = true;
+  if (flights.length < 15) {
+    adminCreateFlight();
+  }
+  adminExit = true;
+  if (flights.length > 0) {
+    adminRemoveFlight();
+  }
+  if (adminExit === true) {
+    adminActions();
+  }
+}
+function userMaxPrice() {
+  const userMaximumPrice = 2;
+  const arrayCorrectPrice = [];
+  if (Number.isNaN(userMaximumPrice) || userMaximumPrice === null) {
+    return userMaxPrice();
+  }
+  flights.forEach((flight) => {
+    if (flight.cost <= userMaximumPrice) {
+      arrayCorrectPrice.push(flight.id);
+    }
+  });
+  if (arrayCorrectPrice.length > 0) {
+    return arrayCorrectPrice;
+  }
+
+  return userMaxPrice();
+}
+function userActions() {
+  const arrayFilteredFlights = userMaxPrice();
+
+  userEnteredId(arrayFilteredFlights);
+}
+function askUserOrAdmin() {
+  const userAdmin = "Admin";
+  if (userAdmin === null) {
+    askUserOrAdmin();
+  }
+  switch (userAdmin.toLowerCase()) {
+    case "admin":
+      adminActions();
+      break;
+    case "user":
+      userActions();
+      break;
+    default:
+      askUserOrAdmin();
+  }
 }
 
-welcomeNameAndGreet();
-flightsList();
-showAveragePrice();
-showNumberOfScales();
 showLastFlights();
 
 askUserOrAdmin();
